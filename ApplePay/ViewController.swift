@@ -18,17 +18,17 @@ class ViewController: UIViewController {
         request.merchantCapabilities = .capability3DS //Protocol which provide secure protocol
         request.countryCode = "IN"
         request.currencyCode = "INR"
-        request.paymentSummaryItems = [PKPaymentSummaryItem(label: "iPhone 11", amount: 73000)]
         return request
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
     @IBAction func btnPayClicked(_ sender: UIButton) {
+        paymentRequest.paymentSummaryItems = [PKPaymentSummaryItem(label: "iPhone 11", amount: 74000)]
         let controller = PKPaymentAuthorizationController(paymentRequest: paymentRequest)
-        print("Pay Clicked: \(controller)")
         controller.delegate = self
         controller.present()
     }
@@ -39,7 +39,6 @@ extension ViewController : PKPaymentAuthorizationControllerDelegate {
         controller.dismiss()
     }
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        print("completed")
         completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
     }
 }
